@@ -3,7 +3,7 @@ MAINTAINER yaronr
 
 ENV TOMCATVER 7.0.57
 ENV TOMCAT_HOME /opt/tomcat
-ENV XWIKI_VER 6.2.3
+ENV XWIKI_VER 6.3
 ENV MYSQL_CONN_VER 5.1.33
 
 RUN (wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/tomcat7.tar.gz http://apache.mivzakim.net/tomcat/tomcat-7/v${TOMCATVER}/bin/apache-tomcat-${TOMCATVER}.tar.gz  && \
@@ -41,12 +41,8 @@ RUN	wget --progress=bar:force --retry-connrefused -t 5 -O /tmp/xwiki.war "http:/
 	
 ADD ./hibernate.cfg.xml ${TOMCAT_HOME}/webapps/xwiki/WEB-INF/
 ADD ./xwiki.properties ${TOMCAT_HOME}/webapps/xwiki/WEB-INF/
-ADD createdb.sh /tmp/createdb.sh
-RUN chmod 777 /tmp/createdb.sh
-
 
 EXPOSE 8080
 
-CMD ["/tmp/createdb.sh"]
 CMD ["/bin/bash", "-e", "/usr/local/bin/run"]
 
